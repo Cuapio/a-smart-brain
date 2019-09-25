@@ -1,0 +1,12 @@
+.Tilt {
+    background: linear-gradient(to right, rgb(17, 59, 78), rgb(0, 241, 230));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.brain {
+    transform: rotateY(180deg);
+}
+

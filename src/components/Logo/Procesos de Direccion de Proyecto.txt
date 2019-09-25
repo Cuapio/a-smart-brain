@@ -1,0 +1,11 @@
+Procesos de Dirección de Proyecto 
+
+  Grupo de Procesos de Inicio 
+
+  Grupos de Procesos de Planificación 
+
+  Grupos de Procesos de Ejecución 
+
+  Grupos de Procesos de Cierre 
+
+  Grupo de Procesos de Monitoreo y Control 
