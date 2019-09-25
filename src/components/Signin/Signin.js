@@ -24,7 +24,7 @@ class Signin extends Component {
             return  console.log('incorrect form submission');
         }
 
-        fetch('http://localhost:3000https://vast-earth-54222.herokuapp.com/signin', {
+        fetch('https://vast-earth-54222.herokuapp.com/signin', {
             method: 'post',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
