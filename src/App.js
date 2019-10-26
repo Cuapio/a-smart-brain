@@ -28,7 +28,6 @@ const particlesOptions = {
 const initalState = {
   input: '',
   imageUrl:'',
-  //https://samples.clarifai.com/face-det.jpg
   boxes: [],
   route: 'signin',
   isSignedIn: false,
@@ -58,7 +57,6 @@ class App extends Component {
   }
 
   calculateFacesLocations = (faceDetectionData) => {
-
     const image = document.getElementById("inputimage");
 
     const width = Number(image.width);
@@ -67,6 +65,7 @@ class App extends Component {
     const boundingBoxes = faceDetectionData.outputs[0].data.regions.map(region => {
       const boundingBox = region.region_info.bounding_box; 
       const { left_col, top_row, right_col, bottom_row } = boundingBox;
+
       return ({
         leftCol: width * left_col,
         topRow: height * top_row,
@@ -74,8 +73,7 @@ class App extends Component {
         bottomRow: height - (height * bottom_row)
       })
     })
-    debugger;
-    //const faceLocation = faceDetectionData.outputs[0].data.regions[0].region_info.bounding_box;
+  
     return boundingBoxes;
   }
   
@@ -129,9 +127,9 @@ class App extends Component {
   }
 
   render() {
-    //console.log("input: ", this.state.input, " imageURL: ", this.state.imageUrl);
     const { isSignedIn, boxes, imageUrl, route } = this.state;
     const { name, entries } = this.state.user;
+
     return (
       <div className="App">
         <Particles 
