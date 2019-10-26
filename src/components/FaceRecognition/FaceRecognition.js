@@ -1,16 +1,19 @@
 import React from 'react';
+
+import { BoundingBox } from '../BoundingBox/BoundingBox';
+
 import './FaceRecognition.css';
 
-const FaceRecognition = ({ imageUrl, box }) => {
-    const { leftCol, rightCol, topRow, bottomRow } = box;
-    return (
-        <div className="center ma">
-            <div className='absolute'>
-                <img id="inputimage" className='ma3 photo' alt="" src={imageUrl} width='500px' height='auto'/>
-                <div className='bounding-box' style={{left: leftCol, top: topRow, right: rightCol, bottom: bottomRow }}> </div>
-            </div>
+const FaceRecognition = ({ boxes, imageUrl }) => (
+    <div className="center ma">
+        <div className='absolute'>
+            <img id="inputimage" className='ma3 photo' alt="" src={imageUrl} width='500px' height='auto'/>
+            { boxes.map((box, i) => (
+                <BoundingBox key={i} box={box} />)
+            )}
         </div>
-    );
-}
+    </div>
+)
+
 
 export default FaceRecognition;
