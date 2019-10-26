@@ -57,31 +57,30 @@ class App extends Component {
     }})
   }
 
-  calculateFacesLocation = (faceDetectionData) => {
-    const boundingBoxes = [];
+  calculateFacesLocations = (faceDetectionData) => {
 
     const image = document.getElementById("inputimage");
 
     const width = Number(image.width);
     const height = Number(image.height);
 
-    boundingBoxes = faceDetectionData.outputs[0].data.regions.map(region => {
+    const boundingBoxes = faceDetectionData.outputs[0].data.regions.map(region => {
       const boundingBox = region.region_info.bounding_box; 
       const { left_col, top_row, right_col, bottom_row } = boundingBox;
-
-      return {
+      return ({
         leftCol: width * left_col,
         topRow: height * top_row,
         rightCol: width - (width * right_col),
         bottomRow: height - (height * bottom_row)
-      }
+      })
     })
+    debugger;
     //const faceLocation = faceDetectionData.outputs[0].data.regions[0].region_info.bounding_box;
     return boundingBoxes;
   }
   
-  setFaceBox = (boxes) => {
-    this.setState({boxes})
+  setFaceBoxes = (boxes) => {
+    this.setState({boxes}, () => {console.log(this.state.boxes)})
   }
 
   onInputChange = (event) => {
@@ -114,7 +113,7 @@ class App extends Component {
           })
           .catch(err => console.log)
         }
-        this.setFaceBox(this.calculateFacesLocation(faceDetectionResponse));
+        this.setFaceBoxes(this.calculateFacesLocations(faceDetectionResponse));
       })    
       .catch(err => console.log(err))
     }
@@ -135,19 +134,39 @@ class App extends Component {
     const { name, entries } = this.state.user;
     return (
       <div className="App">
-        <Particles className='particles'
-                params={particlesOptions} />
-        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+        <Particles 
+          className='particles'
+          params={particlesOptions} 
+        />
+        <Navigation 
+          isSignedIn={isSignedIn} 
+          onRouteChange={this.onRouteChange}
+        />
         { route === 'home' 
           ? <div> 
               <Logo />
-              <Rank name={name} entries={entries}/>
-              <ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit} />
-              <FaceRecognition boxes={boxes} imageUrl={imageUrl}/> 
+              <Rank 
+                name={name} 
+                entries={entries}
+              />
+              <ImageLinkForm 
+                onInputChange={this.onInputChange} 
+                onPictureSubmit={this.onPictureSubmit} 
+              />
+              <FaceRecognition 
+                boxes={boxes} 
+                imageUrl={imageUrl}
+              /> 
             </div>
           : (route === 'signin' 
-              ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+              ? <Signin 
+                  loadUser={this.loadUser} 
+                  onRouteChange={this.onRouteChange} 
+                />
+              : <Register 
+                  loadUser={this.loadUser} 
+                  onRouteChange={this.onRouteChange} 
+                />
             )  
         } 
       </div>
